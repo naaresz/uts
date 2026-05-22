@@ -22,19 +22,19 @@ export default function Dashboard() {
 
     useEffect(() => {
         // FETCH EVENTS
-        fetch("/events")
+        fetch(import.meta.env.VITE_API_URL + "/events")
             .then((res) => res.json())
             .then((data) => setEvents(data))
             .catch((err) => console.log("Error events:", err));
 
         // FETCH CATEGORIES
-        fetch("/categories")
+        fetch(import.meta.env.VITE_API_URL + "/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data))
             .catch((err) => console.log("Error categories:", err));
 
         // FETCH SPEAKERS
-        fetch("/speakers")
+        fetch(import.meta.env.VITE_API_URL + "/speakers")
             .then((res) => res.json())
             .then((data) => setSpeakers(data))
             .catch((err) => console.log("Error speakers:", err));
