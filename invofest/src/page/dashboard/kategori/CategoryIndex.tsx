@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
-import Button from "../../../components/Button";
 
 interface Category {
     id: number;
@@ -12,7 +11,7 @@ export default function CategoryIndex(){
     const [categories, setCategories] = useState<Category[]>([]);
 
     useEffect(() => {
-        fetch("/categories")
+        fetch(import.meta.env.VITE_API_URL + "/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data))
             .catch((error) => console.log("Gagal mengambil data", error));
@@ -24,7 +23,7 @@ export default function CategoryIndex(){
         if (!confirmDelete) return;
 
         try {
-            await fetch(`/categories/${id}`,
+            await fetch(import.meta.env.VITE_API_URL + `/categories/${id}`,
                 {method: "DELETE"}
             );
             setCategories((prev) =>

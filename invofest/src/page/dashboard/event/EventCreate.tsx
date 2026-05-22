@@ -32,11 +32,11 @@ export default function EventCreate(){
     const [speakers, setSpeakers] = useState([]);
     
     useEffect(() => {
-        fetch("/categories")
+        fetch(import.meta.env.VITE_API_URL + "/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data));
 
-        fetch("/speakers")
+        fetch(import.meta.env.VITE_API_URL + "/speakers")
             .then((res) => res.json())
             .then((data) => setSpeakers(data));
     }, []);
@@ -49,7 +49,7 @@ export default function EventCreate(){
 
     const onSubmit = async (data: FormData) => {
         try {
-            await fetch("/events", {
+            await fetch(import.meta.env.VITE_API_URL + "/events", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -26,7 +26,7 @@ export default function CategoryCreate(){
 
     const onSubmit = async (data:FormData) => {
         try {
-            await fetch("/categories", {
+            await fetch(import.meta.env.VITE_API_URL + "/categories", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

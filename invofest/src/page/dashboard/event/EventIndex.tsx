@@ -1,4 +1,4 @@
-import { Calendar, Clock, MapPin, Building, User } from "lucide-react";
+import { Calendar, MapPin, User } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
@@ -21,7 +21,7 @@ export default function EventIndex(){
     const [events, setEvents] = useState<Event[]>([]);
 
     useEffect(() => {
-        fetch("/events")
+        fetch(import.meta.env.VITE_API_URL + "/events")
         .then((res) => res.json())
         .then((data) => setEvents(data))
         .catch((err) => console.log("Gagal ambil data event", err))
@@ -33,7 +33,7 @@ export default function EventIndex(){
         if (!confirmDelete) return;
 
         try {
-            await fetch(`/events/${id}`, {
+            await fetch(import.meta.env.VITE_API_URL + `/events/${id}`, {
             method: "DELETE",
             });
 

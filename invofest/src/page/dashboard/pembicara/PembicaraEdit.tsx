@@ -28,7 +28,7 @@ export default function PembicaraEdit(){
     const {register, handleSubmit, reset, formState:{errors} } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     useEffect(() => {
-        fetch(`/speakers/${id}`)
+        fetch(import.meta.env.VITE_API_URL + `/speakers/${id}`)
             .then((res) => res.json())
             .then((data) => {
                 reset({
@@ -43,7 +43,7 @@ export default function PembicaraEdit(){
 
     const onSubmit = async (data: FormData) => {
         try {
-            await fetch(`http://localhost:3000/speakers/${id}`, {
+            await fetch(import.meta.env.VITE_API_URL + `/speakers/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

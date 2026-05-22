@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod"
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../../../components/Button";
@@ -27,7 +27,7 @@ export default function CategoryEdit(){
     const {register, handleSubmit, reset,  formState:{errors} } = useForm<FormData>({ resolver: zodResolver(schema) });
 
     useEffect(() => {
-        fetch(`/categories/${id}`)
+        fetch(import.meta.env.VITE_API_URL + `/categories/${id}`)
         .then((res) => res.json())
         .then((data) => {
             reset({
@@ -40,7 +40,7 @@ export default function CategoryEdit(){
 
     const onSubmit = async (data:FormData) => {
         try {
-            await fetch(`/categories/${id}`, {
+            await fetch(import.meta.env.VITE_API_URL + `/categories/${id}`, {
                 method: "PUT",
                 headers: {
                 "Content-Type": "application/json",

@@ -14,7 +14,7 @@ export default function PembicaraIndex(){
     const [speakers, setSpeakers] = useState<Speaker[]>([]);
 
     useEffect(() => {
-      fetch("/speakers")
+      fetch(import.meta.env.VITE_API_URL + "/speakers")
         .then((res) => res.json())
         .then((data) => setSpeakers(data))
         .catch((err) => console.log("Gagal ambil data speaker", err))
@@ -26,7 +26,7 @@ export default function PembicaraIndex(){
         if (!confirmDelete) return;
 
         try {
-            await fetch(`http://localhost:3000/speakers/${id}`,
+            await fetch(import.meta.env.VITE_API_URL + `/speakers/${id}`,
                 {method: "DELETE"}
             );
             setSpeakers((prev) =>

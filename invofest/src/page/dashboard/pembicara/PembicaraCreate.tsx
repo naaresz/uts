@@ -27,7 +27,7 @@ export default function PembicaraCreate(){
 
     const onSubmit = async (data: FormData) => {
         try {
-            await fetch("/speakers", {
+            await fetch(import.meta.env.VITE_API_URL + "/speakers", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

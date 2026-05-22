@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../../../components/Button";
@@ -37,17 +37,17 @@ export default function EventEdit(){
         });
 
     useEffect(() => {
-        fetch("/categories")
+        fetch(import.meta.env.VITE_API_URL + "/categories")
             .then((res) => res.json())
             .then((data) => setCategories(data));
 
-        fetch("/speakers")
+        fetch(import.meta.env.VITE_API_URL + "/speakers")
             .then((res) => res.json())
             .then((data) => setSpeakers(data));
     }, []);
 
     useEffect(() => {
-        fetch(`/events/${id}`)
+        fetch(import.meta.env.VITE_API_URL + `/events/${id}`)
             .then((res) => res.json())
             .then((data) => {
               reset({
@@ -64,7 +64,7 @@ export default function EventEdit(){
 
     const onSubmit = async (data: FormData) => {
         try {
-            await fetch(`/events/${id}`, {
+            await fetch(import.meta.env.VITE_API_URL + `/events/${id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
