@@ -9,13 +9,13 @@ import { Link } from "react-router-dom";
 import { useAuthStore } from "../store/useAuthStore";
 
 type FormData = {
-    nim:string;
+    username:string;
     password:string;
 }
 
 const schema = z.object({
-    nim: z.string().min(8, "NIM tidak valid"),
-    password: z.string().min(8, "Minimal 8 Karakter"),
+    username: z.string().min(8, "Username minimal 8 karakter"),
+    password: z.string().min(8, "Password minimal 8 Karakter"),
 });
 
 export default function Login() {
@@ -24,15 +24,33 @@ export default function Login() {
 
     const {register, handleSubmit, formState:{errors} } = useForm<FormData>({ resolver: zodResolver(schema) });
 
-    const onSubmit = (data:FormData) => {
-        console.log(data)
+    const onSubmit = async (data:FormData) => {
+        try {
+            const response = await fetch(import.meta.env.VITE_API_URL + "/auth/login", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            });
 
-        if(data.nim === "24090008" && data.password === "12345678"){
-            alert("Login berhasil");
-            login(data.nim);
+            const result = await response.json();
+
+            if (!response.ok) {
+                alert(result.message);
+                return;
+            }
+
+            localStorage.setItem("token", result.data.token);
+
+            login(result.data.user.username);
+
+            alert(result.message);
+
             navigate("/dashboard");
-        } else {
-            alert("Login Gagal: Username atau Password salah!")
+        } catch (error) {
+            console.error(error);
+            alert("Terjadi kesalahan pada server ")
         }
     }
 
@@ -47,11 +65,11 @@ export default function Login() {
                 </p>
                 <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                     <Input 
-                        label="NIM" 
-                        name="nim" 
+                        label="Username" 
+                        name="username" 
                         register={register} 
-                        error={errors.nim?.message}
-                        placeholder="Masukkan NIM anda"
+                        error={errors.username?.message}
+                        placeholder="Masukkan Username anda"
                     />
 
                     <InputPassword 
