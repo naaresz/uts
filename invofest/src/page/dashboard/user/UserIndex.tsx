@@ -14,7 +14,11 @@ export default function UserIndex() {
     useEffect(() => {
         fetch(import.meta.env.VITE_API_URL + "/users")
             .then((res) => res.json())
-            .then((data) => setUsers(data))
+            .then((data) => {
+                if (data.success) {
+                    setUsers(data.data);
+                }
+            })
             .catch((error) => console.log("Gagal mengambil data user", error));
     }, []);
 
@@ -67,9 +71,18 @@ export default function UserIndex() {
                         key={user.id}
                         className="bg-white rounded-xl p-6 shadow-sm border-r-8 border-[#76153C]"
                     >
-                        <h3 className="text-2xl font-bold text-[#76153C] mb-2">
-                            {user.username}
-                        </h3>
+                        <div className="flex items-center gap-4 mb-3">
+                            <img 
+                                src={user.foto || "https://ui-avatars.com/api/?name=" + user.username} 
+                                alt={user.username}
+                                className="w-14 h-14 rounded-full object-cover border"
+                            />
+
+                            <h3 className="text-2xl font-bold text-[#76153C]">
+                                {user.username}
+                            </h3>
+
+                        </div>
 
                         <p className="text-gray-600 mb-4">
                             Dibuat: {new Date(user.createdAt).toLocaleDateString()}

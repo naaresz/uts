@@ -34,11 +34,16 @@ export default function UserCreate() {
         fetch(import.meta.env.VITE_API_URL + `/users/${id}`)
         .then((res) => res.json())
         .then((data) => {
-            reset({
-                username: data.username,
-                password: data.password,
-                foto: data.foto,
-            });
+            console.log("API RESULT:", data);
+            
+            if (data.success) {
+                reset({
+                    username: data.data.username,
+                    password: "",
+                    confirmPassword: "",
+                    foto: data.data.foto,
+                });
+            }
         })
         .catch((err) => console.log(err));
     }, [id, reset]);
