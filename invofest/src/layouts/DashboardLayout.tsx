@@ -25,7 +25,7 @@ export default function DashboardLayout(){
                         <Link to="/dashboard/category" className="p-4 hover:bg-black transition-colors ease-in duration-150">Kategori Event</Link>
                         <Link to="/dashboard/event" className="p-4 hover:bg-black transition-colors ease-in duration-150">Event</Link>
                         <Link to="/dashboard/pembicara" className="p-4 hover:bg-black transition-colors ease-in duration-150">Pembicara</Link>
-                        <Link to="/dashboard/biodata" className="p-4 hover:bg-black transition-colors ease-in duration-150">Biodata</Link>
+                        <Link to="/dashboard/users" className="p-4 hover:bg-black transition-colors ease-in duration-150">User</Link>
                     </nav>
                 </div>
 

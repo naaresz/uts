@@ -21,6 +21,10 @@ import EventEdit from "./page/dashboard/event/EventEdit";
 import CategoryEdit from "./page/dashboard/kategori/CategoryEdit";
 import PembicaraEdit from "./page/dashboard/pembicara/PembicaraEdit";
 import Biodata from "./page/dashboard/biodata/Biodata";
+import UserIndex from "./page/dashboard/user/UserIndex";
+import UserCreate from "./page/dashboard/user/UserCreate";
+import UserEdit from "./page/dashboard/user/UserEdit";
+
 
  function App() {
   return (
@@ -43,16 +47,19 @@ import Biodata from "./page/dashboard/biodata/Biodata";
         <Route element={<ProtectedRoute />}>
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<Dashboard/>} />
-            <Route path="/dashboard/category/create" element={<CategoryCreate/>} />
             <Route path="/dashboard/category" element={<CategoryIndex/>}/>
+            <Route path="/dashboard/category/create" element={<CategoryCreate/>} />
             <Route path="/dashboard/category/edit/:id" element={<CategoryEdit />}/>
-            <Route path="/dashboard/event/create" element={<EventCreate />}/>
             <Route path="/dashboard/event" element={<EventIndex />}/>
+            <Route path="/dashboard/event/create" element={<EventCreate />}/>
             <Route path="/dashboard/event/edit/:id" element={<EventEdit />}/>
             <Route path="/dashboard/pembicara" element={<PembicaraIndex/>}/>
             <Route path="/dashboard/pembicara/create" element={<PembicaraCreate/>}/>
             <Route path="/dashboard/pembicara/edit/:id" element={<PembicaraEdit/>}/>
             <Route path="/dashboard/biodata" element={<Biodata/>} />
+            <Route path="/dashboard/users" element={<UserIndex/>} />
+            <Route path="/dashboard/users/create" element={<UserCreate/>} />
+            <Route path="/dashboard/users/edit/:id" element={<UserEdit/>} />
           </Route>
         </Route>
       </Routes>
