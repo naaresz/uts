@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect} from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Navigate } from "react-router-dom";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "../../../components/Button";
