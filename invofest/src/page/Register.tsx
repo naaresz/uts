@@ -8,17 +8,17 @@ import InputPassword from "../components/InputPassword";
 import Button  from "../components/Button";
 
 type FormData = {
-    nama: string;
-    email: string;
+    username: string;
     password: string;
     password_confirm: string;
+    foto: string;
 }
 
 const schema = z.object({
-    nama: z.string().min(1, "Nama tidak boleh kosong!"),
-    email: z.string().email("Email tidak valid"),
+    username: z.string().min(8, "Username minimal 8 karakter!"),
     password: z.string().min(8, "Minimal 8 Karakter"),
     password_confirm: z.string().min(8, "Minimal 8 Karakter"),
+    foto: z.string().url("Foto tidak boleh kosong!"),
 }).refine((data) => data.password === data.password_confirm, {
     message: "Password tidak sama",
     path: ["password_confirm"],
@@ -30,10 +30,22 @@ export default function Register(){
 
     const {register, handleSubmit, formState:{errors} } = useForm<FormData>({ resolver: zodResolver(schema) });
     
-    const onSubmit = (data:FormData) => {
-        console.log(data)
-        setRedirect(true);
-    }
+    const onSubmit = async (data:FormData) => {
+        try {
+            const response = await fetch(import.meta.env.VITE_API_URL + "/auth/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            });
+            if (response.ok) {
+                setRedirect(true);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const [redirect, setRedirect] = useState(false);
 
@@ -52,19 +64,19 @@ export default function Register(){
                 </p>
             <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
                 <Input 
-                    label="Nama" 
-                    name="nama" 
+                    label="Username" 
+                    name="username" 
                     register={register} 
-                    error={errors.nama?.message}
-                    placeholder="Nama lengkap Anda"
+                    error={errors.username?.message}
+                    placeholder="Username Anda"
                 />
 
                 <Input 
-                    label="Email" 
-                    name="email" 
+                    label="Foto" 
+                    name="foto" 
                     register={register} 
-                    error={errors.email?.message}
-                    placeholder="email@anda.com"
+                    error={errors.foto?.message}
+                    placeholder="url foto"
                 />
 
                 <InputPassword
